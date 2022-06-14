@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Layout from "../components/Layout";
 
 import styles from "./AddArticle.module.css";
 
@@ -57,54 +58,49 @@ function AddArticlePage() {
     }
   }
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>
-        <h1>Article Reviewer</h1>
-      </div>
-      <div className={styles.content}>
-        <form ref={form} className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.control}>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              defaultValue={defaultArticle.name}
-            />
-          </div>
-          <div className={styles.control}>
-            <label htmlFor="url">URL:</label>
-            <input
-              type="url"
-              name="url"
-              id="url"
-              defaultValue={defaultArticle.url}
-            />
-          </div>
-          <div className={styles.control}>
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              name="date"
-              id="date"
-              defaultValue={defaultArticle.date}
-            />
-          </div>
-          <div className={styles.control}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              defaultValue={defaultArticle.email}
-            />
-          </div>
-          <div className={styles.control}>
-            <button type="submit">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Layout>
+      <form ref={form} className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.control}>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            defaultValue={defaultArticle.name}
+          />
+        </div>
+        <div className={styles.control}>
+          <label htmlFor="url">URL:</label>
+          <input
+            type="url"
+            name="url"
+            id="url"
+            defaultValue={defaultArticle.url}
+          />
+        </div>
+        <div className={styles.control}>
+          <label htmlFor="date">Date:</label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            defaultValue={defaultArticle.date}
+          />
+        </div>
+        <div className={styles.control}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            defaultValue={defaultArticle.email}
+          />
+        </div>
+        <div className={styles.control}>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </Layout>
   );
 }
 
