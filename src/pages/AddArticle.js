@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import Layout from "../components/Layout";
-import { getFromLocal, saveToLocal } from "../helpers/local-storage";
 
 import styles from "./AddArticle.module.css";
 
@@ -14,7 +13,7 @@ function AddArticlePage() {
     email: "thiagorasouza@gmail.com",
   };
 
-  function saveArticle(articleData) {
+  async function saveArticle(articleData) {
     const requiredFields = ["name", "url", "date", "email"];
     for (const requiredField of requiredFields) {
       if (!articleData[requiredField]) {
@@ -22,13 +21,20 @@ function AddArticlePage() {
       }
     }
 
-    const savedArticles = getFromLocal("articles") || [];
-    const nextId = savedArticles.length + 1;
-    savedArticles.push({
-      id: nextId,
-      ...articleData,
-    });
-    return saveToLocal("articles", savedArticles);
+    try {
+      const response = await fetch("/api/articles", {
+        method: "POST",
+        body: JSON.stringify(articleData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return await response.json();
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   function handleSubmit(event) {
