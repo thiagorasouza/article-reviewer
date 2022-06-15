@@ -8,10 +8,18 @@ function SavedArticlesPage() {
   const [articles, setArticles] = useState(null);
 
   useEffect(() => {
-    const savedArticles = getFromLocal("articles");
-    // console.log(savedArticles);
-    setArticles(savedArticles);
+    loadSavedArticles();
   }, []);
+
+  async function loadSavedArticles() {
+    try {
+      const response = await fetch("/api/articles");
+      const articles = await response.json();
+      setArticles(articles);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function handleDelete(articleId) {
     const filteredArticles = articles.filter(
@@ -21,15 +29,13 @@ function SavedArticlesPage() {
     setArticles(filteredArticles);
   }
 
-  console.log(articles);
-
   return (
     <Layout>
       {articles
         ? Array.isArray(articles) && articles.length === 0
           ? "No articles saved yet"
           : articles.map((article) => (
-              <div key={article.id} className={styles.article}>
+              <div key={article._id} className={styles.article}>
                 <div className={styles.data}>
                   <div className={styles.nameAndDate}>
                     {article.name} - review at {article.date}
