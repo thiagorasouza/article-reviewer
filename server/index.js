@@ -1,24 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
-const mongoose = require("mongoose");
+const mongo = require("./mongo");
 const app = express();
 
-async function connect() {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    mongoose.connection.on("error", (error) => {
-      console.log(error);
-      throw new Error("There was a problem with the database connection");
-    });
-    console.log("Database connected successfully");
-  } catch (error) {
-    console.log(error);
-    throw new Error("Could not establish a connection to the database");
-  }
-}
+const Article = require("./articles.js");
 
-connect();
+mongo.connect();
 
 app.get("/api", (req, res) => {
   res.send("Api server");
