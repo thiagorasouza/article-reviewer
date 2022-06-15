@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { getFromLocal, saveToLocal } from "../helpers/local-storage";
 
 import styles from "./SavedArticles.module.css";
 
@@ -21,12 +20,15 @@ function SavedArticlesPage() {
     }
   }
 
-  function handleDelete(articleId) {
-    const filteredArticles = articles.filter(
-      (article) => article.id !== articleId
-    );
-    saveToLocal("articles", filteredArticles);
-    setArticles(filteredArticles);
+  async function handleDelete(articleId) {
+    try {
+      await fetch(`/api/articles/${articleId}`, {
+        method: "DELETE",
+      });
+      loadSavedArticles();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -47,7 +49,7 @@ function SavedArticlesPage() {
                 <div className={styles.controls}>
                   <button
                     type="button"
-                    onClick={() => handleDelete(article.id)}
+                    onClick={() => handleDelete(article._id)}
                   >
                     Delete
                   </button>
