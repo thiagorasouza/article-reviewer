@@ -23,7 +23,11 @@ function AddArticlePage() {
     }
 
     const savedArticles = getFromLocal("articles") || [];
-    savedArticles.push(articleData);
+    const nextId = savedArticles.length + 1;
+    savedArticles.push({
+      id: nextId,
+      ...articleData,
+    });
     return saveToLocal("articles", savedArticles);
   }
 
