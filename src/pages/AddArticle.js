@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Layout from "../components/Layout";
+import { getFromLocal, saveToLocal } from "../helpers/local-storage";
 
 import styles from "./AddArticle.module.css";
 
@@ -24,23 +25,6 @@ function AddArticlePage() {
     const savedArticles = getFromLocal("articles") || [];
     savedArticles.push(articleData);
     return saveToLocal("articles", savedArticles);
-  }
-
-  function getFromLocal(itemName) {
-    try {
-      return JSON.parse(localStorage.getItem(itemName));
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function saveToLocal(itemName, itemData) {
-    try {
-      localStorage.setItem(itemName, JSON.stringify(itemData));
-      return true;
-    } catch (error) {
-      return false;
-    }
   }
 
   function handleSubmit(event) {
