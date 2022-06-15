@@ -40,6 +40,18 @@ app.get("/api/articles", async (req, res) => {
   }
 });
 
+app.delete("/api/articles/:articleId", async (req, res) => {
+  const { articleId } = req.params;
+
+  try {
+    const deleted = await Article.deleteOne({ _id: articleId });
+    res.status(200).json(deleted);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Server error");
+  }
+});
+
 app.listen("4000", () => {
   console.log("Express server started");
 });
