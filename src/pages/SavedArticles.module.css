@@ -1,0 +1,16 @@
+.article {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.controls {
+  margin-left: auto;
+}
+
+.controls button {
+  font-size: 1rem;
+  margin: 0 auto;
+  padding: 0.5rem 0.75rem;
+}
